@@ -15,13 +15,11 @@ $ currency-rates -r USD,CAD,EUR -c GBP,AUD,JPY
 
 ## Inverse
 ```
-$ # -i is to inverse
 $ currency-rates -i
 ```
 
-## Availabe Countries
+## Show Available Countries
 ```
-$ # -l is to show list of available countries
 $ currency-rates -l
 ```
 
