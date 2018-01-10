@@ -41,7 +41,7 @@ async function init() {
     if (showList) {
       delete currencies.timestamp
 
-      console.log(Object.keys(currencies).map(code => code.cyan + getFlag(code)).join(' '))
+      console.log(Object.keys(currencies).map(code => `${getFlag(code)} ${code.cyan}`).join(''))
     } else {
       const [rows, cols] = [
         program.rows.split(DIVIDER).filter(verifyCode),
