@@ -18,9 +18,9 @@ const DIVIDER = ','
 
 program
   .version(require('../package.json').version)
-  .option('-r, --rows [currency]', `display all currencies to convert on rows (split by ${DIVIDER})`, 'CAD')
-  .option('-c, --cols [currency]', `display all currencies to be converted on columns (split by ${DIVIDER})`, 'USD,CNY,EUR,GBP,AUD,JPY')
-  .option('-i, --inverse [inverse]', 'inverse currencies to convert', false)
+  .option('-r, --rows [currency]', `set currencies to convert on rows (split by ${DIVIDER})`, 'USD')
+  .option('-c, --cols [currency]', `set currencies to be converted on columns (split by ${DIVIDER})`, 'CAD,CNY,EUR')
+  .option('-i, --inverse [currency]', 'inverse currencies to convert', false)
   .option('-l, --list [currency code]', 'show all available currency code', false)
   .parse(process.argv)
 
