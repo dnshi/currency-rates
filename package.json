@@ -2,7 +2,7 @@
   "name": "currency-rates",
   "version": "0.1.0",
   "description": "A fetching currency rates tool",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "lint": "eslint index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,7 +13,9 @@
     "cli-table2": "^0.2.0",
     "colors": "^1.1.2",
     "commander": "^2.12.2",
-    "r2": "^2.0.0"
+    "country-code-emoji": "0.0.1",
+    "r2": "^2.0.0",
+    "stringz": "^0.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

@@ -5,16 +5,19 @@
  * Date:   2018-01-09
  */
 
+require('./helper')
+require('colors')
+
 const r2 = require('r2')
 const Table = require('cli-table2')
-const colors = require('colors') // eslint-disable-line
 const program = require('commander')
+const { flag } = require('country-code-emoji')
 
 const XE_URL = 'http://www.xe.com/a/ratesprovider.php?_='
 const DIVIDER = ','
 
 program
-  .version(require('./package.json').version)
+  .version(require('../package.json').version)
   .option('-r, --rows [currency]', `display all currencies to convert on rows (split by ${DIVIDER})`, 'CAD')
   .option('-c, --cols [currency]', `display all currencies to be converted on columns (split by ${DIVIDER})`, 'USD,CNY,EUR,GBP,AUD,JPY')
   .option('-i, --inverse [inverse]', 'inverse currencies to convert', false)
@@ -38,7 +41,7 @@ async function init() {
     if (showList) {
       delete currencies.timestamp
 
-      console.log(Object.keys(currencies).map(str => str.cyan).join(' '))
+      console.log(Object.keys(currencies).map(code => code.cyan + getFlag(code)).join(' '))
     } else {
       const [rows, cols] = [
         program.rows.split(DIVIDER).filter(verifyCode),
@@ -46,22 +49,27 @@ async function init() {
       ]
 
       const table = new Table({
-        head: [isInversed ? 'Inverse'.gray : '', ...cols].map(title => title.yellow),
-        colWidths: [9, ...Array(cols.length).fill(10)],
+        head: [isInversed ? 'Inverse'.gray : '', ...cols].map(title => title.yellow + getFlag(title)),
+        colWidths: [10, ...Array(cols.length).fill(9)],
       })
 
-      rows.forEach(row => table.push([`1 ${row}`, ...cols.map(col => convert(currencies[row], currencies[col]))]))
+      rows.forEach(row => table.push([`1 ${row + getFlag(row)}`, ...cols.map(col => convert(currencies[row], currencies[col]))]))
 
       console.log(table.toString())
     }
   } catch (error) {
     console.error('⚠️  Cannot fetch currency rates'.bold.red)
+    console.log(error)
   }
 }
 
 function convert(base, target) {
   if (isInversed) [base, target] = [target, base] // eslint-disable-line
   return (target / base).toFixed(precision)
+}
+
+function getFlag(code) {
+  return code && ` ${flag(code.substring(0, 2))}`
 }
 
 /* eslint-disable */
