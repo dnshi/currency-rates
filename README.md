@@ -3,10 +3,10 @@ A fetching currency rates tool
 
 ## Install
 ```
-$ git clone https://github.com/dnshi/currency-rates.git && cd $_
+$ git clone https://github.com/dnshi/currency-rates.git && cd currency-rates
 $ npm install
-$ node ./index
+$ node .
 ```
 
-## Screen Shot
+## Screenshot
 ![screenshot](./screenshot.png?raw=true)
