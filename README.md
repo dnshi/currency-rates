@@ -1,5 +1,5 @@
 # Currency Rates
-A fetching currency rates tool
+A fetching currency rates tool and display rates on your terminal.
 
 ## Install
 ```
