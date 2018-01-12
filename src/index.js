@@ -34,14 +34,13 @@ async function init() {
   try {
     const { rates } = await r2(XE_URL + +(new Date())).json
     const currencies = JSON.parse(decodeRatesData(rates.minutely))
-    const availableCurrencyCode = new Set(Object.keys(currencies))
+    const currenciesArr = Object.keys(currencies).filter(c => !c.startsWith('X') && c !== 'timestamp')
+    const currenciesSet = new Set(currenciesArr)
 
-    const verifyCode = code => availableCurrencyCode.has(code)
+    const verifyCode = code => currenciesSet.has(code)
 
     if (showList) {
-      delete currencies.timestamp
-
-      console.log(Object.keys(currencies).map(code => `${getFlag(code)} ${code.cyan}`).join(''))
+      console.log(currenciesArr.filter(c => !c.startsWith('X')).map(code => `${getFlag(code)} ${code.cyan}`).join(''))
     } else {
       const [rows, cols] = [
         program.rows.split(DIVIDER).filter(verifyCode),
