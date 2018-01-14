@@ -1,4 +1,8 @@
 # Currency Rates
+[![npm version](https://badge.fury.io/js/currency-rates.svg)](https://www.npmjs.com/package/currency-rates)
+[![npm](https://img.shields.io/npm/dt/currency-rates.svg)](https://www.npmjs.com/package/currency-rates)
+[![dependencies Status](https://david-dm.org/dnshi/currency-rates/status.svg)](https://david-dm.org/dnshi/currency-rates)
+
 A fetching currency rates tool and display rates on your terminal.
 
 ## Install
