@@ -6,24 +6,24 @@
 A fetching currency rates tool and display rates on your terminal.
 
 ## Install
-```
+```sh
 $ npm i -g currency-rates
 $ currency-rates
 ```
 
 ## Customize
-```
+```sh
 $ # -r is rows and -c is columns
 $ currency-rates -r USD,CAD,EUR -c GBP,AUD,JPY
 ```
 
 ## Inverse
-```
+```sh
 $ currency-rates -i
 ```
 
 ## Show Available Countries
-```
+```sh
 $ currency-rates -l
 ```
 
