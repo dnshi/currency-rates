@@ -38,7 +38,7 @@ program
 
 const precision = 3
 const isInversed = program.inverse
-const isToShowList = program.list
+const shouldShowList = program.list
 
 r2(XE_URL + +new Date())
   .json.then(({ rates }) => run(rates))
@@ -53,7 +53,7 @@ function run(rates) {
     c => !c.startsWith('X') && c !== 'timestamp'
   )
 
-  if (isToShowList) {
+  if (shouldShowList) {
     showList(currenciesArr)
   } else {
     printTable(currencies, currenciesArr)
