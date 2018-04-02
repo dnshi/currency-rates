@@ -18,10 +18,22 @@ const DIVIDER = ','
 
 program
   .version(require('../package.json').version)
-  .option('-r, --rows [currency]', `set currencies to convert on rows (split by ${DIVIDER})`, 'USD')
-  .option('-c, --cols [currency]', `set currencies to be converted on columns (split by ${DIVIDER})`, 'CAD,CNY,EUR')
+  .option(
+    '-r, --rows [currency]',
+    `set currencies to convert on rows (split by ${DIVIDER})`,
+    'USD'
+  )
+  .option(
+    '-c, --cols [currency]',
+    `set currencies to be converted on columns (split by ${DIVIDER})`,
+    'CAD,CNY,EUR'
+  )
   .option('-i, --inverse [currency]', 'inverse currencies to convert', false)
-  .option('-l, --list [currency code]', 'show all available currency code', false)
+  .option(
+    '-l, --list [currency code]',
+    'show all available currency code',
+    false
+  )
   .parse(process.argv)
 
 const precision = 3
@@ -32,15 +44,22 @@ init()
 
 async function init() {
   try {
-    const { rates } = await r2(XE_URL + +(new Date())).json
+    const { rates } = await r2(XE_URL + +new Date()).json
     const currencies = JSON.parse(decodeRatesData(rates.minutely))
-    const currenciesArr = Object.keys(currencies).filter(c => !c.startsWith('X') && c !== 'timestamp')
+    const currenciesArr = Object.keys(currencies).filter(
+      c => !c.startsWith('X') && c !== 'timestamp'
+    )
     const currenciesSet = new Set(currenciesArr)
 
     const verifyCode = code => currenciesSet.has(code)
 
     if (showList) {
-      console.log(currenciesArr.filter(c => !c.startsWith('X')).map(code => `${getFlag(code)} ${code.cyan}`).join(''))
+      console.log(
+        currenciesArr
+          .filter(c => !c.startsWith('X'))
+          .map(code => `${getFlag(code)} ${code.cyan}`)
+          .join('')
+      )
     } else {
       const [rows, cols] = [
         program.rows.split(DIVIDER).filter(verifyCode),
@@ -48,11 +67,18 @@ async function init() {
       ]
 
       const table = new Table({
-        head: [isInversed ? 'Inverse'.gray : '', ...cols].map(title => title.yellow + getFlag(title)),
+        head: [isInversed ? 'Inverse'.gray : '', ...cols].map(
+          title => title.yellow + getFlag(title)
+        ),
         colWidths: [10, ...Array(cols.length).fill(9)],
       })
 
-      rows.forEach(row => table.push([`1 ${row + getFlag(row)}`, ...cols.map(col => convert(currencies[row], currencies[col]))]))
+      rows.forEach(row =>
+        table.push([
+          `1 ${row + getFlag(row)}`,
+          ...cols.map(col => convert(currencies[row], currencies[col])),
+        ])
+      )
 
       console.log(table.toString())
     }

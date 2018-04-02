@@ -2,14 +2,17 @@ const utils = require('cli-table2/src/utils')
 const stringz = require('stringz')
 
 function codeRegex() {
-  return /\u001b\[(?:\d*;){0,5}\d*m/g
+  return /\u001b\[(?:\d*;){0,5}\d*m/g // eslint-disable-line
 }
 
 function strlen(str) {
   const code = codeRegex()
-  const stripped = (`${str}`).replace(code, '')
+  const stripped = `${str}`.replace(code, '')
   const split = stripped.split('\n')
-  return split.reduce((memo, s) => ((stringz.length(s) > memo) ? stringz.length(s) : memo), 0)
+  return split.reduce(
+    (memo, s) => (stringz.length(s) > memo ? stringz.length(s) : memo),
+    0
+  )
 }
 
 function repeat(str, times) {
