@@ -38,54 +38,60 @@ program
 
 const precision = 3
 const isInversed = program.inverse
-const showList = program.list
+const isToShowList = program.list
 
-init()
-
-async function init() {
-  try {
-    const { rates } = await r2(XE_URL + +new Date()).json
-    const currencies = JSON.parse(decodeRatesData(rates.minutely))
-    const currenciesArr = Object.keys(currencies).filter(
-      c => !c.startsWith('X') && c !== 'timestamp'
-    )
-    const currenciesSet = new Set(currenciesArr)
-
-    const verifyCode = code => currenciesSet.has(code)
-
-    if (showList) {
-      console.log(
-        currenciesArr
-          .filter(c => !c.startsWith('X'))
-          .map(code => `${getFlag(code)} ${code.cyan}`)
-          .join('')
-      )
-    } else {
-      const [rows, cols] = [
-        program.rows.split(DIVIDER).filter(verifyCode),
-        program.cols.split(DIVIDER).filter(verifyCode),
-      ]
-
-      const table = new Table({
-        head: [isInversed ? 'Inverse'.gray : '', ...cols].map(
-          title => title.yellow + getFlag(title)
-        ),
-        colWidths: [10, ...Array(cols.length).fill(9)],
-      })
-
-      rows.forEach(row =>
-        table.push([
-          `1 ${row + getFlag(row)}`,
-          ...cols.map(col => convert(currencies[row], currencies[col])),
-        ])
-      )
-
-      console.log(table.toString())
-    }
-  } catch (error) {
+r2(XE_URL + +new Date())
+  .json.then(({ rates }) => run(rates))
+  .catch(error => {
     console.error('⚠️  Cannot fetch currency rates'.bold.red)
     console.log(error)
+  })
+
+function run(rates) {
+  const currencies = JSON.parse(decodeRatesData(rates.minutely))
+  const currenciesArr = Object.keys(currencies).filter(
+    c => !c.startsWith('X') && c !== 'timestamp'
+  )
+
+  if (isToShowList) {
+    showList(currenciesArr)
+  } else {
+    printTable(currencies, currenciesArr)
   }
+}
+
+function showList(currenciesArr) {
+  console.log(
+    currenciesArr.map(code => `${getFlag(code)} ${code.cyan}`).join('')
+  )
+}
+
+function printTable(currencies, currenciesArr) {
+  const currenciesSet = new Set(currenciesArr)
+  const [rows, cols] = [
+    program.rows.split(DIVIDER).filter(verifyCode(currenciesSet)),
+    program.cols.split(DIVIDER).filter(verifyCode(currenciesSet)),
+  ]
+
+  const table = new Table({
+    head: [isInversed ? 'Inverse'.gray : '', ...cols].map(
+      title => title.yellow + getFlag(title)
+    ),
+    colWidths: [10, ...Array(cols.length).fill(9)],
+  })
+
+  rows.forEach(row =>
+    table.push([
+      `1 ${row + getFlag(row)}`,
+      ...cols.map(col => convert(currencies[row], currencies[col])),
+    ])
+  )
+
+  console.log(table.toString())
+}
+
+function verifyCode(currenciesSet) {
+  return code => currenciesSet.has(code)
 }
 
 function convert(base, target) {
