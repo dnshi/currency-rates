@@ -1,6 +1,6 @@
 {
   "name": "currency-rates",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Command line tool to fetch currency rates tool and display rates on your terminal",
   "main": "./src/index.js",
   "bin": {
