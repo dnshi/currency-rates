@@ -42,7 +42,7 @@ const shouldShowList = program.list
 
 r2(XE_URL + +new Date())
   .json.then(({ rates }) => run(rates))
-  .catch(error => {
+  .catch((error) => {
     console.error('⚠️  Cannot fetch currency rates'.bold.red)
     console.log(error)
   })
@@ -50,7 +50,7 @@ r2(XE_URL + +new Date())
 function run(rates) {
   const currencies = JSON.parse(decodeRatesData(rates.minutely))
   const currenciesArr = Object.keys(currencies).filter(
-    c => !c.startsWith('X') && c !== 'timestamp'
+    (c) => !c.startsWith('X') && c !== 'timestamp'
   )
 
   if (shouldShowList) {
@@ -62,7 +62,7 @@ function run(rates) {
 
 function showList(currenciesArr) {
   console.log(
-    currenciesArr.map(code => `${getFlag(code)} ${code.cyan}`).join('')
+    currenciesArr.map((code) => `${getFlag(code)} ${code.cyan}`).join('')
   )
 }
 
@@ -75,15 +75,15 @@ function printTable(currencies, currenciesArr) {
 
   const table = new Table({
     head: [isInversed ? 'Inverse'.gray : '', ...cols].map(
-      title => title.yellow + getFlag(title)
+      (title) => title.yellow + getFlag(title)
     ),
     colWidths: [10, ...Array(cols.length).fill(9)],
   })
 
-  rows.forEach(row =>
+  rows.forEach((row) =>
     table.push([
       `1 ${row + getFlag(row)}`,
-      ...cols.map(col => convert(currencies[row], currencies[col])),
+      ...cols.map((col) => convert(currencies[row], currencies[col])),
     ])
   )
 
@@ -91,7 +91,7 @@ function printTable(currencies, currenciesArr) {
 }
 
 function verifyCode(currenciesSet) {
-  return code => currenciesSet.has(code)
+  return (code) => currenciesSet.has(code)
 }
 
 function convert(base, target) {
