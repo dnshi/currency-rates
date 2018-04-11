@@ -41,7 +41,8 @@ const isInversed = program.inverse
 const shouldShowList = program.list
 
 r2(XE_URL + +new Date())
-  .json.then(({ rates }) => run(rates))
+  .json
+  .then(({ rates }) => run(rates))
   .catch((error) => {
     console.error('⚠️  Cannot fetch currency rates'.bold.red)
     console.log(error)
