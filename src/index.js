@@ -9,7 +9,7 @@ require('./helper')
 require('colors')
 
 const r2 = require('r2')
-const Table = require('cli-table2')
+const Table = require('cli-table3')
 const program = require('commander')
 const { flag } = require('country-code-emoji')
 
