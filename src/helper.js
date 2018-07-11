@@ -1,4 +1,4 @@
-const utils = require('cli-table2/src/utils')
+const utils = require('cli-table3/src/utils')
 const stringz = require('stringz')
 
 function codeRegex() {
