@@ -12,7 +12,8 @@ $ currency-rates
 
 ## Customize
 ```sh
-$ # -r is rows and -c is columns
+$ # -r => rows
+$ # -c => columns
 $ currency-rates -r USD,CAD,EUR -c GBP,AUD,JPY
 ```
 
