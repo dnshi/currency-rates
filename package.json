@@ -16,12 +16,12 @@
     "cli-table3": "^0.5.0",
     "colors": "^1.1.2",
     "commander": "^2.12.2",
-    "country-code-emoji": "0.0.1",
+    "country-code-emoji": "1.0.0",
     "r2": "^2.0.0",
-    "stringz": "^0.4.0"
+    "stringz": "^1.0.0"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-config-reducer": "^0.2.3",
     "prettier": "^1.11.1"
   },

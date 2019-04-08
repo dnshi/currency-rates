@@ -11,7 +11,7 @@ require('colors')
 const r2 = require('r2')
 const Table = require('cli-table3')
 const program = require('commander')
-const { flag } = require('country-code-emoji')
+const flag = require('country-code-emoji')
 
 const XE_URL = 'http://www.xe.com/a/ratesprovider.php?_='
 const DIVIDER = ','
@@ -41,8 +41,7 @@ const isInversed = program.inverse
 const shouldShowList = program.list
 
 r2(XE_URL + +new Date())
-  .json
-  .then(({ rates }) => run(rates))
+  .json.then(({ rates }) => run(rates))
   .catch((error) => {
     console.error('⚠️  Cannot fetch currency rates'.bold.red)
     console.log(error)
@@ -96,8 +95,7 @@ function verifyCode(currenciesSet) {
 }
 
 function convert(base, target) {
-  if (isInversed) [base, target] = [target, base] // eslint-disable-line
-  return (target / base).toFixed(precision)
+  return (isInversed ? base / target : target / base).toFixed(precision)
 }
 
 function getFlag(code) {
