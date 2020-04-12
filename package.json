@@ -1,6 +1,6 @@
 {
   "name": "currency-rates",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Command line tool to fetch currency rates tool and display rates on your terminal",
   "main": "./src/index.js",
   "bin": {
@@ -13,17 +13,17 @@
   "author": "Dean Shi <dean.xiaoshi@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "cli-table3": "^0.5.1",
-    "colors": "^1.3.3",
-    "commander": "^3.0.0",
+    "cli-table3": "^0.6.0",
+    "colors": "^1.4.0",
+    "commander": "^5.0.0",
     "country-code-emoji": "1.0.0",
     "r2": "^2.0.1",
-    "stringz": "^2.0.0"
+    "stringz": "^2.1.0"
   },
   "devDependencies": {
-    "eslint": "^6.2.2",
-    "eslint-config-reducer": "^0.3.0",
-    "prettier": "^1.18.2"
+    "eslint": "^6.8.0",
+    "eslint-config-reducer": "^0.5.2",
+    "prettier": "^2.0.4"
   },
   "repository": {
     "type": "git",
